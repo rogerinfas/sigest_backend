@@ -1,5 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
-import { Role } from '../../roles/entities/role.entity';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { UsuarioTienda } from '../../usuario_tienda/entities/usuario_tienda.entity';
 
 @Entity({ name: 'usuarios' })
@@ -19,9 +18,13 @@ export class Usuario {
   @Column({ type: 'varchar', length: 100, nullable: true })
   email?: string | null;
 
-  @ManyToOne(() => Role, (r) => r.usuarios, { nullable: false })
-  @JoinColumn({ name: 'id_rol', referencedColumnName: 'id_rol' })
-  rol: Role;
+  @Column({
+    name: 'rol',
+    type: 'enum',
+    enum: ['admin', 'vendedor', 'supervisor'],
+    nullable: false,
+  })
+  rol: 'admin' | 'vendedor' | 'supervisor';
 
   @Column({ type: 'boolean', default: true })
   activo: boolean;

@@ -18,18 +18,18 @@ export class UsuariosService {
       password_hash: createUsuarioDto.password_hash,
       nombre: createUsuarioDto.nombre,
       email: createUsuarioDto.email,
-      rol: { id_rol: createUsuarioDto.id_rol } as any,
+      rol: createUsuarioDto.rol,
       activo: createUsuarioDto.activo ?? true,
     } as any);
     return await this.usuarioRepo.save(entity);
   }
 
   async findAll() {
-    return await this.usuarioRepo.find({ relations: { rol: true } });
+    return await this.usuarioRepo.find();
   }
 
   async findOne(id: number) {
-    const usuario = await this.usuarioRepo.findOne({ where: { id_usuario: id }, relations: { rol: true } });
+    const usuario = await this.usuarioRepo.findOne({ where: { id_usuario: id } });
     if (!usuario) throw new NotFoundException('Usuario no encontrado');
     return usuario;
   }
@@ -37,10 +37,6 @@ export class UsuariosService {
   async update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
     const usuario = await this.findOne(id);
     Object.assign(usuario, updateUsuarioDto);
-    if ((updateUsuarioDto as any).id_rol) {
-      (usuario as any).rol = { id_rol: (updateUsuarioDto as any).id_rol } as any;
-      delete (usuario as any).id_rol;
-    }
     return await this.usuarioRepo.save(usuario);
   }
 

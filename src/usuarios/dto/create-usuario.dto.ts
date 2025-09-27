@@ -1,4 +1,4 @@
-import { IsBoolean, IsEmail, IsInt, IsOptional, IsString, Length, MaxLength, Min } from 'class-validator';
+import { IsBoolean, IsEmail, IsEnum, IsOptional, IsString, Length, MaxLength } from 'class-validator';
 
 export class CreateUsuarioDto {
   @IsString()
@@ -18,9 +18,8 @@ export class CreateUsuarioDto {
   @MaxLength(100)
   email?: string;
 
-  @IsInt()
-  @Min(1)
-  id_rol: number;
+  @IsEnum(['admin', 'vendedor', 'supervisor'])
+  rol: 'admin' | 'vendedor' | 'supervisor';
 
   @IsOptional()
   @IsBoolean()
