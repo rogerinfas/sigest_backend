@@ -4,7 +4,7 @@ import { Repository, Not } from 'typeorm';
 import { Tienda } from './entities/tienda.entity';
 import { CreateTiendaDto } from './dto/create-tienda.dto';
 import { UpdateTiendaDto } from './dto/update-tienda.dto';
-import { PaginationParamsDto } from './dto/pagination-params.dto';
+import { PaginationParamsDto } from '../common/dto/pagination-params.dto';
 import { PaginatedResult } from '../common/interfaces/paginated-result.interface';
 
 @Injectable()

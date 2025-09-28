@@ -3,7 +3,7 @@ import { TiendasService } from './tiendas.service';
 import { CreateTiendaDto } from './dto/create-tienda.dto';
 import { UpdateTiendaDto } from './dto/update-tienda.dto';
 import { Tienda } from './entities/tienda.entity';
-import { PaginationParamsDto } from './dto/pagination-params.dto';
+import { PaginationParamsDto } from '../common/dto/pagination-params.dto';
 
 @Controller('tiendas')
 export class TiendasController {
