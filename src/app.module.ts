@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TiendasModule } from './tiendas/tiendas.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
 
 
 @Module({
@@ -20,6 +21,7 @@ import { TiendasModule } from './tiendas/tiendas.module';
       synchronize: true,
     }),
     TiendasModule,
+    UsuariosModule,
   ],
 
   controllers: [],
