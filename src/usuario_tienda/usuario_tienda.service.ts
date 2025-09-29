@@ -137,6 +137,37 @@ export class UsuarioTiendaService {
     }
   }
 
+  async findUsuariosByTienda(
+    tiendaId: number
+  ) {
+    const tienda = await this.tiendaRepository.findOne({ 
+      where: { id: tiendaId },
+      select: ['id', 'nombre']
+    });
+    
+    if (!tienda) {
+      throw new NotFoundException('Tienda no encontrada');
+    }
+    
+    const results = await this.usuarioTiendaRepository.find({
+      where: { tienda: { id: tiendaId } },
+      relations: ['usuario', 'tienda']
+    });
+    
+    return {
+      tienda: {
+        id: tienda.id,
+        nombre: tienda.nombre
+      },
+      usuarios: results.map(ut => ({
+        id: ut.usuario.id,
+        username: ut.usuario.username,
+        rol: ut.usuario.rol,
+        activo: ut.usuario.activo,
+      }))
+    };
+  }
+
   private toResponseDto(usuarioTienda: UsuarioTienda): UsuarioTiendaResponseDto {
     return {
       id: usuarioTienda.id,

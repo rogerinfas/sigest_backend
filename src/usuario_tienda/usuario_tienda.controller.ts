@@ -19,6 +19,13 @@ export class UsuarioTiendaController {
     return this.usuarioTiendaService.findAll(pagination);
   }
 
+  @Get('tienda/:tiendaId')
+  async findUsuariosByTienda(
+    @Param('tiendaId', ParseIntPipe) tiendaId: number
+  ) {
+    return this.usuarioTiendaService.findUsuariosByTienda(tiendaId);
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number): Promise<UsuarioTiendaResponseDto> {
     return this.usuarioTiendaService.findOne(id);
