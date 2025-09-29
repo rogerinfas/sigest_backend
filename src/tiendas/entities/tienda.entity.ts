@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { UsuarioTienda } from '../../usuario_tienda/entities/usuario_tienda.entity';
 
 @Entity('tiendas')
 export class Tienda {
@@ -19,4 +20,7 @@ export class Tienda {
 
     @CreateDateColumn({ type: 'timestamp' })
     fechaCreacion: Date;
+
+    @OneToMany(() => UsuarioTienda, usuarioTienda => usuarioTienda.tienda)
+    usuarioTiendas: UsuarioTienda[];
 }

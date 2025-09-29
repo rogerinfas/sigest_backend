@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
+import { UsuarioTienda } from '../../usuario_tienda/entities/usuario_tienda.entity';
 
 export enum RolUsuario {
     ADMINISTRADOR = 'Administrador',
@@ -37,4 +38,7 @@ export class Usuario {
 
     @CreateDateColumn({ type: 'timestamp' })
     fechaCreacion: Date;
+
+    @OneToMany(() => UsuarioTienda, usuarioTienda => usuarioTienda.usuario)
+    usuarioTiendas: UsuarioTienda[];
 }
